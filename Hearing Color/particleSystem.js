@@ -1,7 +1,16 @@
 class ParticleSystem {
     constructor(numParticles, windowWidth, windowHeight) {
+        /* Constants */
+        this.MIN_SIZE = 30;
+        this.MAX_SIZE = 70;
+
+        this.MIN_OPACITY = 30;
+        this.MAX_OPACITY = 255;
+
+        this.MIN_HZ_RATE = 0.05;
+        this.MAX_HZ_RATE = 90;
+ 
         /* Effects */
-        
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
 
@@ -27,29 +36,30 @@ class ParticleSystem {
         this.particles = [];
 
         this.notePressed = false;
+
+        this.initParticles();
     }
 
     initParticles() {
         for (let i = 0; i < this.numParticles; i++) {
-            this.particles.push(new Particle());
+            const hue = random(240, 290);
+            this.particles.push(new Particle(random(0, this.windowWidth), random(0, this.windowHeight), hue,  this));
         }
     }
 
     updateSystem() {
-        
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+            this.particles[i].updateParticle();
+        }
     }
 
     display() {
-        console.log("Dispaly")
-        background(0, 0, 0, 1 - this.reverb);
-        fill(255*this.lowPass, 0, 255*this.lowPass, 255 * (30 + this.highPass));
-        
-        let x = this.windowWidth/2 + random(-this.distortion*10, this.distortion*10);
-        let y = this.windowHeight/2 + random(-this.distortion*10, this.distortion*10);
-        let w = 100 + map(this.volume, 0, 1, 0, 20);
-        let h = 100 + map(this.volume, 0, 1, 0, 20);
-        
-        ellipse(x, y, w, h);
+        const opacity = map(this.reverb, 0, 1, this.MAX_OPACITY, this.MIN_OPACITY);
+        background(0, 0, 11, opacity);
+
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+            this.particles[i].drawParticle();
+        }
     }
 
     setNotePressed(valueBool) {
@@ -62,6 +72,7 @@ class ParticleSystem {
             return;
         }
 
+        console.log("Pitchbend: ", pitchBend)
         this.pitchBend = pitchBend;
     }
 
@@ -71,6 +82,7 @@ class ParticleSystem {
             return;
         }
 
+        console.log("Modulation: ", modulation);
         this.modulation = modulation;
     }
 
@@ -80,6 +92,7 @@ class ParticleSystem {
             return;
         };
 
+        console.log("Amount: ", amount);
         this.amount = amount;
     }
 
@@ -89,6 +102,7 @@ class ParticleSystem {
             return;
         };
 
+        console.log("Phase: ", phase);
         this.phase = phase;
     }
 
@@ -98,6 +112,7 @@ class ParticleSystem {
             return;
         };
 
+        console.log("Rate: ", rate);
         this.rate = rate;
     }
 
@@ -107,6 +122,7 @@ class ParticleSystem {
             return;
         };
         
+        console.log("Volume: ", volume);
         this.volume = volume;
     }
 
@@ -116,6 +132,7 @@ class ParticleSystem {
             return;
         };
         
+        console.log("Reverb: ", reverb);
         this.reverb = reverb;
     }
 
@@ -125,6 +142,7 @@ class ParticleSystem {
             return;
         };
 
+        console.log("Delay: ", delay)
         this.delay = delay;
     }
 
@@ -133,6 +151,8 @@ class ParticleSystem {
             console.error("Distortion must be between 0 and 1");
             return;
         };
+
+        console.log("Distortion: ", distortion)
         this.distortion = distortion;
     }
 
@@ -142,6 +162,7 @@ class ParticleSystem {
         return;
         };
     
+        console.log("Lowpass: ", lowPass);
         this.lowPass = lowPass;
     }
 
@@ -151,12 +172,13 @@ class ParticleSystem {
             return;
         };
         
+        console.log("Highpass: ", highPass)
         this.highPass = highPass;
     }
 }
 
 class Particle {
-    constructor(x, y) {
+    constructor(x, y, hue, parentParticleSystem) {
         // Position
         this.x = x;
         this.y = y;
@@ -177,7 +199,32 @@ class Particle {
         // Size
         this.size = 0;
 
+        this.hue = hue;
+
         // Life
         this.life = 0;
+
+        this.parentParticleSystem = parentParticleSystem;
+    }
+
+    updateParticle() {
+        const brightness = map(this.parentParticleSystem.highPass, 0, 1, 0, 100);
+        const saturation = map(this.parentParticleSystem.lowPass, 0, 1, 0, 100);
+
+        fill(this.hue, saturation, brightness);
+        noStroke();
+    
+        //TODO: Make oscillation lerp values so there is now erid jump
+        let rateSpeed = map(this.parentParticleSystem.rate, 0, 1, this.parentParticleSystem.MIN_HZ_RATE, this.parentParticleSystem.MAX_HZ_RATE);
+        let oscillation = sin(millis() * rateSpeed * 2 * PI / (1000 * 10));
+
+        this.x += random(-this.parentParticleSystem.distortion*10, this.parentParticleSystem.distortion*10);
+        this.y += random(-this.parentParticleSystem.distortion*10, this.parentParticleSystem.distortion*10);
+        this.size = map(this.parentParticleSystem.volume, 0, 1, this.parentParticleSystem.MIN_SIZE, this.parentParticleSystem.MAX_SIZE) * (1 + oscillation * this.parentParticleSystem.amount);
+    }
+
+    drawParticle() {
+        console.log(this.x, this.y, this.size, this.size);
+        ellipse(this.x, this.y, this.size, this.size);
     }
 }

@@ -5,6 +5,7 @@ let particleSystem;
 
 async function setup() {
 	createCanvas(windowWidth, windowHeight);
+	colorMode(HSB);
 
 	try {
 		await WebMidi.enable();
@@ -14,7 +15,7 @@ async function setup() {
 	}
 	
 	onWebMidiEnabled();
-	particleSystem = new ParticleSystem(maxParticles);
+	particleSystem = new ParticleSystem(maxParticles, windowWidth, windowHeight);
 	controller = new Controller(channel, particleSystem)
 }
 
