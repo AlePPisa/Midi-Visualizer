@@ -1,5 +1,5 @@
 class ParticleSystem {
-    constructor(numParticles, windowWidth, windowHeight) {
+    constructor(numParticles, windowWidth, windowHeight, imgColor) {
         /* Constants */
         this.MIN_SIZE = 30;
         this.MAX_SIZE = 70;
@@ -32,6 +32,7 @@ class ParticleSystem {
         this.modulation = 0;
 
         /* Particle System */
+        this.imgColor = imgColor;
         this.numParticles = numParticles;
         this.particles = [];
 
@@ -40,15 +41,31 @@ class ParticleSystem {
         this.initParticles();
     }
 
+    getColor(x, y) {
+        const color = this.imgColor.get(map(x, -this.MAX_SIZE, this.windowWidth + this.MAX_SIZE, 0, this.imgColor.width), map(y, -this.MAX_SIZE, this.windowHeight + this.MAX_SIZE, 0, this.imgColor.height));
+        return color;
+    }
+
     initParticles() {
         for (let i = 0; i < this.numParticles; i++) {
-            const hue = random(240, 290);
-            this.particles.push(new Particle(random(0, this.windowWidth), random(0, this.windowHeight), hue,  this));
+            const hue = 250;
+            this.particles.push(new Particle(random(0, this.windowWidth), this.windowHeight, hue, this));
         }
     }
 
     updateSystem() {
+        if (this.notePressed) {
+            this.initParticles();
+        }
+        
         for (let i = this.particles.length - 1; i >= 0; i--) {
+            const particle = this.particles[i];
+
+            if (particle.isDead()) {
+                this.particles.splice(i, 1);
+                continue
+            }
+
             this.particles[i].updateParticle();
         }
     }
@@ -208,23 +225,42 @@ class Particle {
     }
 
     updateParticle() {
-        const brightness = map(this.parentParticleSystem.highPass, 0, 1, 0, 100);
-        const saturation = map(this.parentParticleSystem.lowPass, 0, 1, 0, 100);
+        this.x += this.vx * deltaTime;
+        this.y += this.vy * deltaTime;
+        
+        this.vx += this.ax;
+        this.vy += this.ay;
 
-        fill(this.hue, saturation, brightness);
-        noStroke();
-    
         //TODO: Make oscillation lerp values so there is now erid jump
         let rateSpeed = map(this.parentParticleSystem.rate, 0, 1, this.parentParticleSystem.MIN_HZ_RATE, this.parentParticleSystem.MAX_HZ_RATE);
         let oscillation = sin(millis() * rateSpeed * 2 * PI / (1000 * 10));
 
         this.x += random(-this.parentParticleSystem.distortion*10, this.parentParticleSystem.distortion*10);
-        this.y += random(-this.parentParticleSystem.distortion*10, this.parentParticleSystem.distortion*10);
+        this.y += random(-this.parentParticleSystem.distortion*10, this.parentParticleSystem.distortion*10) - 2;
         this.size = map(this.parentParticleSystem.volume, 0, 1, this.parentParticleSystem.MIN_SIZE, this.parentParticleSystem.MAX_SIZE) * (1 + oscillation * this.parentParticleSystem.amount);
+
+        noStroke();
     }
 
     drawParticle() {
-        console.log(this.x, this.y, this.size, this.size);
+        let color = this.parentParticleSystem.getColor(this.x, this.y);
+        // console.lxog(color)
+        
+        let r = color[0];
+        let g = color[1];
+        let b = color[2];
+        
+        colorMode(RGB);
+        fill(r,g,b);
+        
         ellipse(this.x, this.y, this.size, this.size);
+    }
+
+    isDead() {
+        if (this.x < -this.parentParticleSystem.MAX_SIZE || this.x > this.parentParticleSystem.windowWidth + -this.parentParticleSystem.MAX_SIZE || this.y < -this.parentParticleSystem.MAX_SIZE || this.y > this.parentParticleSystem.windowHeight + this.parentParticleSystem.MAX_SIZE) {
+            return true;
+        }
+
+        return false;
     }
 }

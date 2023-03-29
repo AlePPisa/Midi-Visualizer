@@ -1,7 +1,12 @@
-const maxParticles = 100;
+const maxParticles = 10;
 let channel;
 let controller;
 let particleSystem;
+let imgColor;
+
+async function preload() {
+	imgColor = await loadImage("images/colors.png");
+}
 
 async function setup() {
 	createCanvas(windowWidth, windowHeight);
@@ -15,11 +20,13 @@ async function setup() {
 	}
 	
 	onWebMidiEnabled();
-	particleSystem = new ParticleSystem(maxParticles, windowWidth, windowHeight);
+	particleSystem = new ParticleSystem(maxParticles, windowWidth, windowHeight, imgColor);
 	controller = new Controller(channel, particleSystem)
 }
 
 function draw() {
+	if (!particleSystem) return;
+
 	particleSystem.updateSystem();
 	particleSystem.display();
 }
