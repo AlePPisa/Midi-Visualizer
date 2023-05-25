@@ -21,7 +21,7 @@ The following are some pictures and GIFs regarding the final product. Once again
 Connect any MIDI controller into the software and instantiate a channel using webmid.js. Note that particle system functionality is limited to specific models as for the time being.
 
 ### Particle System
-Displays particles based on specific MIDI input. Note that this section has been specifically coded to support [[[MIDI CONTROLLER NAME]]], and a generalization is part of the extensions we wish to implement.
+Displays particles based on specific MIDI input. Note that this section has been specifically coded to support the Arturia Mini Lab MIDI keyboard, and a generalization is part of the extensions we wish to implement.
 
 ### Control Particle Properties using MIDI Knobs
 It is possible to manipulate the following properties of the particle system:  
@@ -41,7 +41,7 @@ The colors of the particle system are sampled from an image in order to achieve 
 ---
 The following are improvements that have been recognized and would like to be pursued:
 
-- As it stands the project is made specifically for [[[INSERT BRAND OF KEYBOARD HERE]]]. Changing this so that it supports different MIDI controllers is one of our top priorities.
+- As it stands the project is made specifically for the Arturia Mini Lab MIDI keyboard. Changing this so that it supports different MIDI controllers is one of our top priorities.
 
 - Currently the project is implemented using Javascript, this is because webmidi.js and p5.js do not have proper TypeScript support as of the current date (6th of May, 2023). We believe the project would be heavily improved by porting it to Typescript. Most classes would have proper code completion, and the developer experience would improve greatly. 
 
