@@ -85,111 +85,111 @@ class ParticleSystem {
 
     setPitchBend(pitchBend) {
         if(pitchBend < -1 || pitchBend > 1) {
-            console.error("Pitch Bend must be between -1 and 1");
+            // console.error("Pitch Bend must be between -1 and 1");
             return;
         }
 
-        console.log("Pitchbend: ", pitchBend)
+        // console.log("Pitchbend: ", pitchBend)
         this.pitchBend = pitchBend;
     }
 
     setModulation(modulation) {
         if(modulation < 0 || modulation > 1) {
-            console.error("Modulation must be between 0 and 1");
+            // console.error("Modulation must be between 0 and 1");
             return;
         }
 
-        console.log("Modulation: ", modulation);
+        // console.log("Modulation: ", modulation);
         this.modulation = modulation;
     }
 
     setAmount(amount) {
         if (amount < 0 || amount > 1) {
-            console.error("Temolo Amount must be between 0 and 1");
+            // console.error("Temolo Amount must be between 0 and 1");
             return;
         };
 
-        console.log("Amount: ", amount);
+        // console.log("Amount: ", amount);
         this.amount = amount;
     }
 
     setPhase(phase) {
         if (phase < 0 || phase > 1) {
-            console.error("Tremolo Phase must be between 0 and 1");
+            // console.error("Tremolo Phase must be between 0 and 1");
             return;
         };
 
-        console.log("Phase: ", phase);
+        // console.log("Phase: ", phase);
         this.phase = phase;
     }
 
     setRate(rate) {
         if (rate < 0 || rate > 1) {
-            console.error("Tremolo Rate must be between 0 and 1");
+            // console.error("Tremolo Rate must be between 0 and 1");
             return;
         };
 
-        console.log("Rate: ", rate);
+        // console.log("Rate: ", rate);
         this.rate = rate;
     }
 
     setVolume(volume) {
         if (volume < 0 || volume > 1) {
-            console.error("Volume must be between 0 and 1");
+            // console.error("Volume must be between 0 and 1");
             return;
         };
         
-        console.log("Volume: ", volume);
+        // console.log("Volume: ", volume);
         this.volume = volume;
     }
 
     setReverb(reverb) {
         if (reverb < 0 || reverb > 1) {
-            console.error("Reverb must be between 0 and 1");
+            // console.error("Reverb must be between 0 and 1");
             return;
         };
         
-        console.log("Reverb: ", reverb);
+        // console.log("Reverb: ", reverb);
         this.reverb = reverb;
     }
 
     setDelay(delay) {
         if (delay < 0 || delay > 1) {
-            console.error("Delay must be between 0 and 1");
+            // console.error("Delay must be between 0 and 1");
             return;
         };
 
-        console.log("Delay: ", delay)
+        // console.log("Delay: ", delay)
         this.delay = delay;
     }
 
     setDistortion(distortion) {
          if (distortion < 0 || distortion > 1) {
-            console.error("Distortion must be between 0 and 1");
+            // console.error("Distortion must be between 0 and 1");
             return;
         };
 
-        console.log("Distortion: ", distortion)
+        // console.log("Distortion: ", distortion)
         this.distortion = distortion;
     }
 
     setLowPass(lowPass) {
         if (lowPass < 0 || lowPass > 1) {
-        console.error("Low Pass must be between 0 and 1");
+        // console.error("Low Pass must be between 0 and 1");
         return;
         };
     
-        console.log("Lowpass: ", lowPass);
+        // console.log("Lowpass: ", lowPass);
         this.lowPass = lowPass;
     }
 
     setHighPass(highPass) {
         if (highPass < 0 || highPass > 1) {
-            console.error("High Pass must be between 0 and 1");
+            // console.error("High Pass must be between 0 and 1");
             return;
         };
         
-        console.log("Highpass: ", highPass)
+        // console.log("Highpass: ", highPass)
         this.highPass = highPass;
     }
 }
@@ -244,7 +244,7 @@ class Particle {
 
     drawParticle() {
         let color = this.parentParticleSystem.getColor(this.x, this.y);
-        // console.lxog(color)
+        // // console.lxog(color)
         
         let r = color[0];
         let g = color[1];
