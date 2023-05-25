@@ -3,7 +3,7 @@ For a more in depth showcase of the project please visit: [Hearing Color](https:
 
 ![GIF 1](/Hearing%20Color/images/GIF_Presentation_VEMS.gif)
 
-Midi-Visualizer is a [p5.js](https://p5js.org/) visualization project using [webmidi.js](https://webmidijs.org/). The goal was to create a particle system visualizer for a MIDI controller, in this case a [[[INSERT BRAND OF KEYBOARD HERE]]]. The particles would react to the music played as well as dynamically change in response to different knob inputs.
+Midi-Visualizer is a [p5.js](https://p5js.org/) visualization project using [webmidi.js](https://webmidijs.org/). The goal was to create a particle system visualizer for a MIDI controller, in this case the Arturia Mini Lab MIDI keyboard. The particles would react to the music played as well as dynamically change in response to different knob inputs.
 
 ## End Result
 ---
