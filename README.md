@@ -1,21 +1,19 @@
 # Midi-Visualizer 
-For a more in depth showcase of the project please visit: [Hearing Color](link).
+For a more in depth showcase of the project please visit: [Hearing Color](https://mikahassaly.weebly.com/interactive-exibiton.html).
 
-[GIF 1]
+![GIF 1](/Hearing%20Color/images/GIF_Presentation_VEMS.gif)
 
-Midi-Visualizer is a [p5.js](link) visualization project using [webmidi.js](link). The goal was to create a particle system visualizer for a MIDI controller, in this case a [[[INSERT BRAND OF KEYBOARD HERE]]]. The particles would react to the music played as well as dynamically change in response to different knob inputs.
+Midi-Visualizer is a [p5.js](https://p5js.org/) visualization project using [webmidi.js](https://webmidijs.org/). The goal was to create a particle system visualizer for a MIDI controller, in this case a [[[INSERT BRAND OF KEYBOARD HERE]]]. The particles would react to the music played as well as dynamically change in response to different knob inputs.
 
 ## End Result
 ---
-The following are some pictures and GIFs regarding the final product. Once again please refer to: [Hearing Color](link), for a more detailed overview of the finished project.
+The following are some pictures and GIFs regarding the final product. Once again please refer to: [Hearing Color](https://mikahassaly.weebly.com/interactive-exibiton.html), for a more detailed overview of the finished project.
 
-[Picture 1]
+![Picture 1](/Hearing%20Color/images/VEMS_Display_MIDI_Input.png)
 
-[Picture 2]
+![Picture 2](/Hearing%20Color/images/VEMS_Display.png)
 
-[Picture 3]
-
-[GIF 2]
+![GIF 2](/Hearing%20Color/images/VEMS_Presentation.gif)
 
 ## Features
 ---
